@@ -1,0 +1,90 @@
+<div id="popUpMsg-bg" ng-show="showPopUpMsg">
+	<div id="popUpMsg">
+	<div ng-switch="popupSwitch">
+	<div class="close" ng-click="closePopUp()"><i class="fa fa-close"></i></div>
+		<div ng-switch-default>
+			<h3>Вход/Регистрация</h3>
+			<form>
+			<div class="content">
+				<div class="b-input-email">
+					<label class="required" for="id_phones">E-mail</label>
+ 					<input id="id_phones" name="phones" type="email" ng-model="user.mail" minlength="5" > 
+				</div>
+				<div class="b-input-pass">
+					<label class="required" for="id_phones">Пароль</label>
+ 					<input id="<id_phones></id_phones>" name="pass" type="password" ng-model="user.pass" minlength="6" > 
+				</div>
+				<a ng-click="setPopupSwitch('referbPass')" class="referbPass-link">Забыли пароль?</a>
+		
+			<div class="popUpMsg-bb">
+			<div ng-click="closePopUp()" class="b-btn _b-btn-middle __b-btn-red">Войти </div>	
+			<div ng-click="setPopupSwitch('registation')" class="b-btn _b-btn-middle __b-btn-green">Регистрация </div>
+			</div>
+			</div>
+			</form>	
+		</div>	
+		<div ng-switch-when="referbPass">
+			<h3>Восстановление пароля</h3>
+			<form>
+			<div class="content">
+				<div class="b-input-email">
+					<label class="required" for="id_phones">Введите ваш E-mail</label>
+ 					<input id="id_phones" name="phones" type="email" ng-model="referb.mail" minlength="5" > 
+				</div>
+				<div class="popUpMsg-bb">
+					<div ng-click="setPopupSwitch('sussesPass')" class="b-btn _b-btn-middle __b-btn-red">Отправить </div>	
+				</div>
+			</div>		
+			</form>											
+		</div>
+		<div ng-switch-when="sussesPass">
+			<h3>Восстановление пароля</h3>
+			<p>На вашу почту {{referb.mail}} отрпавлено письмо с инструкций по восстановления пароля</p>
+		</div>
+		<div ng-switch-when="registation">
+			<h3>Регистрация</h3>
+			<form>
+			<div class="content">
+				<div class="b-input-email">
+					<label class="required" for="id_phones">Имя</label>
+ 					<input id="id_phones" name="phones" type="email" ng-model="newuser.fname" minlength="5" > 
+				</div>
+				<div class="b-input-email">
+					<label class="required" for="id_phones">Телефон</label>
+ 					<input id="id_phones" name="phones" type="email" ng-model="newuser.phone" minlength="5" > 
+				</div>
+				<div class="b-input-email">
+					<label class="required" for="id_phones">E-mail</label>
+ 					<input id="id_phones" name="phones" type="email" ng-model="newuser.mail" minlength="5" > 
+				</div>
+				<div class="b-input-pass">
+					<label class="required" for="id_phones">Пароль</label>
+ 					<input id="<id_phones></id_phones>" name="pass" type="password" ng-model="newuser.pass" minlength="6" > 
+				</div>
+		
+			<div class="popUpMsg-bb">
+			<div click="closePopUp()" class="b-btn _b-btn-middle __b-btn-green">Зарегистрироваться</div>
+			</div>
+			</div>
+			</form>	
+		</div>
+		<div ng-switch-when="question">
+			<h3>Задать вопрос</h3>
+						<form>
+			<div class="content">
+			<div class="b-input-email">
+				<label class="required" for="id_phones">Телефон</label>
+ 				<input id="id_phones" name="phones" type="email" ng-model="questinon.phone" minlength="5" > 
+			</div>
+			<div class="b-textarea">
+			<label>Вопрос</label>
+			<textarea></textarea>
+			</div>
+			<div class="popUpMsg-bb">
+			<div click="closePopUp()" class="b-btn _b-btn-middle __b-btn-green">Отправить</div>
+			</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>

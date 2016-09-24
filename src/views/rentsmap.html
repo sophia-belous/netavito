@@ -1,0 +1,1495 @@
+<headermin></headermin>
+<div class="freespace"></div>
+<div class="filter-holder" ng-show="isShowFilter" ng-click="showFilterPopup()"></div>
+<div>
+<div class="b-filter raw">
+	<div class="container">
+		<div class="b-filter-price col-8">
+      <span class="col-3">Диапазон цен:</span>
+      <div class="col-8" ng-switch="rentCategoryQuery">
+      	<div ng-switch-when="1">
+	      <div data-range-slider
+	           data-floor="500"
+	           data-ceiling="40000"
+	           data-step="500"
+	           data-precision="2"
+	           data-ng-model-low="itemsslider[0].value"
+	           data-ng-model-high="itemsslider[1].value"></div>
+	      </div>
+	      <div ng-switch-when="2">
+				<div data-range-slider
+	          data-floor="500"
+	          data-ceiling="15000"
+	          data-step="500"
+	          data-precision="2"
+	          data-ng-model-low="itemsslider[0].value"
+	          data-ng-model-high="itemsslider[1].value"></div>
+	      </div>
+	      <div ng-switch-when="3">
+				<div data-range-slider
+	          data-floor="500"
+	          data-ceiling="50000"
+	          data-step="500"
+	          data-precision="2"
+	          data-ng-model-low="itemsslider[0].value"
+	          data-ng-model-high="itemsslider[1].value"></div>
+	      </div>
+	      <div ng-switch-when="4">
+				<div data-range-slider
+	          data-floor="1000"
+	          data-ceiling="100000"
+	          data-step="500"
+	          data-precision="2"
+	          data-ng-model-low="itemsslider[0].value"
+	          data-ng-model-high="itemsslider[1].value"></div>
+	      </div>
+	      <div ng-switch-when="5">
+				<div data-range-slider
+	          data-floor="1000"
+	          data-ceiling="100000"
+	          data-step="500"
+	          data-precision="2"
+	          data-ng-model-low="itemsslider[0].value"
+	          data-ng-model-high="itemsslider[1].value"></div>
+	      </div>
+	      <div ng-switch-when="6">
+				<div data-range-slider
+	          data-floor="1000"
+	          data-ceiling="100000"
+	          data-step="500"
+	          data-precision="2"
+	          data-ng-model-low="itemsslider[0].value"
+	          data-ng-model-high="itemsslider[1].value"></div>
+	      </div>
+	      <div ng-switch-when="7">
+				<div data-range-slider
+	          data-floor="1000"
+	          data-ceiling="100000"
+	          data-step="500"
+	          data-precision="2"
+	          data-ng-model-low="itemsslider[0].value"
+	          data-ng-model-high="itemsslider[1].value"></div>
+	      </div>
+	      <div ng-switch-when="8">
+				<div data-range-slider
+	          data-floor="1000"
+	          data-ceiling="50000"
+	          data-step="500"
+	          data-precision="2"
+	          data-ng-model-low="itemsslider[0].value"
+	          data-ng-model-high="itemsslider[1].value"></div>
+	      </div>	 	      
+      </div>
+    </div>
+		<div class="b-filter-buttons col-4">
+		<div class="b-select _b-select-middle col-8">
+			<select ng-model="rentCategoryQuery" style="width:100%;">
+				<option value="{{rentCategory.kvartira}}"selected>Квартиры</option>
+				<option value="{{rentCategory.komnata}}">Комнаты</option>
+				<option value="{{rentCategory.home}}">Дома, коттеджи</option>
+				<option value="{{rentCategory.ofice}}">Офисные</option>
+				<option value="{{rentCategory.torg}}">Торговые площади</option>
+				<option value="{{rentCategory.proizv}}">Производственные помещения</option>
+				<option value="{{rentCategory.slkad}}">Складские помещения</option>
+				<option value="{{rentCategory.garage}}">Гаражи</option>
+			</select>
+		</div>
+		<button class="b-btn _b-btn-middle __b-btn-red" style="float:right;" ng-click="showFilterPopup()">
+		<i class="fa fa-plus"></i>Фильтр<sup ng-bind="filterCounting()"></sup>
+		</button>
+		<div class="b-filter-popup" ng-show="isShowFilter">
+			<div class="b-filter-popup-header">
+				<div class="b-filter-popup-header-before"  ng-click="beforeFilter()" ng-bind="beforeButtonFilter()"
+				ng-onchange="console.log(rentQuery)"></div>
+				<div class="b-filter-popup-header-title" ng-bind="FilterTitle"></div>
+				<div class="b-filter-popup-header-clear" ng-click="clearFilter()">Очистить</div>
+				
+			</div>
+			<div ng-switch="switchFilterCategory()">
+				<div ng-switch-when="1">
+					<div class="b-filter-popup-body-filter" ng-switch="switchFilter">
+							<div class="b-filter-popup-body" ng-switch-default="switchFilter">
+								<input
+								type="text"
+								class="b-input-filter-index"
+								ng-model="rentQuery"
+								placeholder="Дом, улица, и т.д..."
+								>
+								<button 
+								type="button" 
+								class="b-btn-filter-index" 
+								ng-repeat="filter in filterlist" 
+								btn-checkbox 
+								ng-click="switchFilterFunction(filter.name)">
+								<div 
+								class="b-btn-filter-index-title" 
+								ng-bind="filter.title"></div>
+								<nobr>
+								<span 
+								class="b-btn-filter-index-status" 
+								ng-bind="filter.status"></span></nobr>
+								</button>
+							</div>
+							<div ng-switch-when="rentTimeFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body"
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentTime == ''}" 
+						    ng-click="setSelectedRentTime('')">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentTime == 'Долгосрочная'}"
+						    ng-click="setSelectedRentTime('Долгосрочная')">
+						    Долгосрочная</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentTime == 'Посуточная'}"
+						    ng-click="setSelectedRentTime('Посуточная')">
+						    Посуточная
+						    </button>
+							</div>
+							<div ng-switch-when="rentAreaFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentArea}" 
+						    ng-click="setClearSelectedRentArea()">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentArea1 == 'Ленинский'}" 
+						    ng-click="setSelectedRentArea('Ленинский')">
+						    Ленинский</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentArea2 == 'Промышленный'}" 
+						    ng-click="setSelectedRentArea('Промышленный')">
+						    Промышленный
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentArea3 == 'Заднепровский'}" 
+						    ng-click="setSelectedRentArea('Заднепровский')">
+						    Заднепровский
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentArea4 == 'Смоленский р-н.'}" 
+						    ng-click="setSelectedRentArea('Смоленский р-н.')">
+						    Смоленский р-н.
+						    </button>
+							</div>
+							<div ng-switch-when="rentRoomCountFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount}" 
+						    ng-click="setClearRentRoomCount()">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount1 == '1'}" 
+						    ng-click="setSelectedRentRoomCount(1)">
+						    1</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount2 == '2'}" 
+						    ng-click="setSelectedRentRoomCount(2)">
+						   	2
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount3 == '3'}" 
+						    ng-click="setSelectedRentRoomCount(3)">
+						    3
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount4 == '4'}" 
+						    ng-click="setSelectedRentRoomCount(4)">
+						    4
+						    </button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount5 == '5'}" 
+						    ng-click="setSelectedRentRoomCount(5)">
+						    5
+						    </button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount6 == '6'}" 
+						    ng-click="setSelectedRentRoomCount(6)">
+						    5+
+						    </button>
+							</div>
+							<div ng-switch-when="rentFlorFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == undefined}" 
+						    ng-click="setSelectedRentFlor(undefined)">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == '1'}" 
+						    ng-click="setSelectedRentFlor(1)">
+						    Первый</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == '2'}" 
+						    ng-click="setSelectedRentFlor(2)">
+						    Не первый
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == '3'}" 
+						    ng-click="setSelectedRentFlor(3)">
+						    Не последний
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == '4'}" 
+						    ng-click="setSelectedRentFlor(4)">
+						    Не первый и не последний
+						    </button>
+							</div>
+							<div ng-switch-when="rentSquareFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == undefined}" 
+						    ng-click="setClearRentSquare(undefined)">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '0-20'}" 
+						    ng-click="setSelectedSqare('0-20')">
+						    0 - 20 м<sup>2</sup></button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '20-40'}" 
+						    ng-click="setSelectedSqare('20-40')">
+						    20 - 40 м<sup>2</sup></button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '40-60'}" 
+						    ng-click="setSelectedSqare('40-60')">
+						    40 - 60 м<sup>2</sup></button>						
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '60-80'}" 
+						    ng-click="setSelectedSqare('60-80')">
+						    60 - 80 м<sup>2</sup></button>    
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '80-100'}" 
+						    ng-click="setSelectedSqare('80-100')">
+						    80 - 100 м<sup>2</sup></button>    				
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '100-150'}" 
+						    ng-click="setSelectedSqare('100-150')">
+						    100 - 150 м<sup>2</sup></button>    		
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '150-200'}" 
+						    ng-click="setSelectedSqare('150-200')">
+						    150 - 200 м<sup>2</sup></button>      
+							<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '150-200'}" 
+						    ng-click="setSelectedSqare('200-5000')">
+						    +200 м<sup>2</sup></button>        
+							</div>
+							<div ng-switch-when="rentPaymentsFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentPayments == undefined}" 
+						    ng-click="setSelectedRentPayments(undefined)">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == 'Счетчики'}" 
+						    ng-click="setSelectedRentPayments('Счетчики')">
+						    Счетчики</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == 'Включены в стоимость'}" 
+						    ng-click="setSelectedRentPayments('Включены в стоимость')">
+						    Включены в стоимость
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == 'Не включены в стоимость'}" 
+						    ng-click="setSelectedRentPayments('Не включены в стоимость')">
+						    Не включены в стоимость
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == 'Эл. энергия'}" 
+						    ng-click="setSelectedRentPayments('Эл. энергия')">
+						    Эл. энергия
+						    </button>
+							</div>		
+							<div ng-switch-when="rentRemFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == undefined}" 
+						    ng-click="setSelectedRentRem(undefined)">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Без отделки'}" 
+						    ng-click="setSelectedRentRem('Без отделки')">
+						    Без отделки</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Косметический'}" 
+						    ng-click="setSelectedRentRem('Косметический')">
+						    Косметический
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Свежий косметический'}" 
+						    ng-click="setSelectedRentRem('Свежий косметический')">
+						    Свежий косметический
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Капитальный'}" 
+						    ng-click="setSelectedRentRem('Капитальный')">
+						    Капитальный
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Евроремонт'}" 
+						    ng-click="setSelectedRentRem('Евроремонт')">
+						    Евроремонт
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Дизайнерский'}" 
+						    ng-click="setSelectedRentRem('Дизайнерский')">
+						    Дизайнерский
+						    </button>
+							</div>
+							<div ng-switch-when="rentMaterialFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == undefined}" 
+						    ng-click="setSelectedRentMaterial()">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == 'Кирпич'}" 
+						    ng-click="setSelectedRentMaterial('Кирпич')">
+						    Кирпич</button>
+						   	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == ''Монолит'}" 
+						    ng-click="setSelectedRentMaterial('Монолит')">
+						    Монолит</button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == 'Панель'}" 
+						    ng-click="setSelectedRentMaterial('Панель')">
+						    Панель</button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == 'Дерево'}" 
+						    ng-click="setSelectedRentMaterial('Дерево')">
+						    Дерево</button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == 'Пеноблок'}" 
+						    ng-click="setSelectedRentMaterial('Пеноблок')">
+						    Пеноблок</button>
+							</div>
+							<div ng-switch-when="rentHeatingFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == undefined}" 
+						    ng-click="setSelectedRenHeating()">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Индивидуальное'}" 
+						    ng-click="setSelectedRentHeating('Индивидуальное')">
+						    Индивидуальное</button>
+						   	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Центральное'}" 
+						    ng-click="setSelectedRentHeating('Центральное')">
+						   	Центральное</button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Автономное'}" 
+						    ng-click="setSelectedRentHeating('Автономное')">
+						    Автономное</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Нет отопления'}" 
+						    ng-click="setSelectedRentHeating('Нет отопления')">
+						    Нет отопления</button>
+							</div>		
+							<div ng-switch-when="rentDopFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentDop == undefined}" 
+						    ng-click="setSelectedRenDopClear()">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropNewhome}" 
+						    ng-click="setPropNewhome()">
+						    Новый дом</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropFurniture}" 
+						    ng-click="setPropFurniture()">
+						    Мебель</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropTv}" 
+						    ng-click="setPropTv()">
+						   	Телевизор</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropFridge}" 
+						    ng-click="setPropFridge()">
+						    Холодильник</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropWasher}" 
+						    ng-click="setPropWasher()">
+						    Стиральная машина</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropMicrowave}" 
+						    ng-click="setPropMicrowave()">
+						    Микроволновая печь</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropKitchen}" 
+						    ng-click="setPropKitchen()">
+						    Встроенная кухня</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropBalcony}" 
+						    ng-click="setPropBalcony()">
+						    Лоджия/Балкон</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropElevator}" 
+						    ng-click="setPropElevator()">
+						    Лифт</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropInternet}" 
+						    ng-click="setPropInternet()">
+						    Интернет</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropParking}" 
+						    ng-click="setPropParking()">
+						    Парковка</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropConditioning}" 
+						    ng-click="setPropConditioning()">
+						    Кондиционер</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropPhone}" 
+						    ng-click="setPropPhone()">
+						    Телефон</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropAppliances}" 
+						    ng-click="setPropAppliances()">
+						   	Бытовые приборы</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropSmoking}" 
+						    ng-click="setPropSmoking()">
+						   	Можно курить</button>
+						   	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropAnimal}" 
+						    ng-click="setPropAnimal()">
+						   	Можно с животными</button>
+						   	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropBaby}" 
+						    ng-click="setPropBaby()">
+						   	Можно с детьми</button>
+						   	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropSleep}" 
+						    ng-click="setPropSleep()">
+						   Спальное место</button>
+							</div>																					
+					</div>
+				</div>
+				<div ng-switch-when="2">
+						<div class="b-filter-popup-body-filter" ng-switch="switchFilter">
+							<div class="b-filter-popup-body" ng-switch-default="switchFilter">
+								<input
+								type="text"
+								class="b-input-filter-index"
+								ng-model="rentQuery"
+								placeholder="Дом, улица, и т.д..."
+								>
+								<button 
+								type="button" 
+								class="b-btn-filter-index" 
+								ng-repeat="filter in filterlist" 
+								btn-checkbox 
+								ng-click="switchFilterFunction(filter.name)">
+								<div 
+								class="b-btn-filter-index-title" 
+								ng-bind="filter.title"></div>
+								<nobr>
+								<span 
+								class="b-btn-filter-index-status" 
+								ng-bind="filter.status"></span></nobr>
+								</button>
+							</div>
+							<div ng-switch-when="rentTimeFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body"
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentTime == ''}" 
+						    ng-click="setSelectedRentTime('')">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentTime == 'Долгосрочная'}"
+						    ng-click="setSelectedRentTime('Долгосрочная')">
+						    Долгосрочная</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentTime == 'Посуточная'}"
+						    ng-click="setSelectedRentTime('Посуточная')">
+						    Посуточная
+						    </button>
+							</div>
+							<div ng-switch-when="rentAreaFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentArea}" 
+						    ng-click="setClearSelectedRentArea('')">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentArea1 == 'Ленинский'}" 
+						    ng-click="setSelectedRentArea('Ленинский')">
+						    Ленинский</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentArea2 == 'Промышленный'}" 
+						    ng-click="setSelectedRentArea('Промышленный')">
+						    Промышленный
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentArea3 == 'Заднепровский'}" 
+						    ng-click="setSelectedRentArea('Заднепровский')">
+						    Заднепровский
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentArea4 == 'Смоленский р-н.'}" 
+						    ng-click="setSelectedRentArea('Смоленский р-н.')">
+						    Смоленский р-н.
+						    </button>
+							</div>
+							<div ng-switch-when="rentRoomCountFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount}" 
+						    ng-click="setClearRentRoomCount()">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount1 == '1'}" 
+						    ng-click="setSelectedRentRoomCount(1)">
+						    1</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount2 == '2'}" 
+						    ng-click="setSelectedRentRoomCount(2)">
+						   	2
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount3 == '3'}" 
+						    ng-click="setSelectedRentRoomCount(3)">
+						    3
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount4 == '4'}" 
+						    ng-click="setSelectedRentRoomCount(4)">
+						    4
+						    </button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount5 == '5'}" 
+						    ng-click="setSelectedRentRoomCount(5)">
+						    5
+						    </button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRoomCount6 == '6'}" 
+						    ng-click="setSelectedRentRoomCount(6)">
+						    5+
+						    </button>
+							</div>
+							<div ng-switch-when="rentFlorFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == undefined}" 
+						    ng-click="setSelectedRentFlor(undefined)">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == '1'}" 
+						    ng-click="setSelectedRentFlor(1)">
+						    Первый</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == '2'}" 
+						    ng-click="setSelectedRentFlor(2)">
+						    Не первый
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == '3'}" 
+						    ng-click="setSelectedRentFlor(3)">
+						    Не последний
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == '4'}" 
+						    ng-click="setSelectedRentFlor(4)">
+						    Не первый и не последний
+						    </button>
+							</div>
+														</div>
+							<div ng-switch-when="rentSquareFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == undefined}" 
+						    ng-click="setClearRentSquare(undefined)">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '0-20'}" 
+						    ng-click="setSelectedSqare('0-20')">
+						    0 - 20 м<sup>2</sup></button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '20-40'}" 
+						    ng-click="setSelectedSqare('20-40')">
+						    20 - 40 м<sup>2</sup></button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '40-60'}" 
+						    ng-click="setSelectedSqare('40-60')">
+						    40 - 60 м<sup>2</sup></button>						
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '60-80'}" 
+						    ng-click="setSelectedSqare('60-80')">
+						    60 - 80 м<sup>2</sup></button>    
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '80-100'}" 
+						    ng-click="setSelectedSqare('80-100')">
+						    80 - 100 м<sup>2</sup></button>    				
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '100-150'}" 
+						    ng-click="setSelectedSqare('100-150')">
+						    100 - 150 м<sup>2</sup></button>    		
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '150-200'}" 
+						    ng-click="setSelectedSqare('150-200')">
+						    150 - 200 м<sup>2</sup></button>      
+							<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentSquare == '150-200'}" 
+						    ng-click="setSelectedSqare('200-5000')">
+						    +200 м<sup>2</sup></button>        
+							</div>
+							<div ng-switch-when="rentPaymentsFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentPayments == undefined}" 
+						    ng-click="setSelectedRentPayments(undefined)">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == 'Счетчики'}" 
+						    ng-click="setSelectedRentPayments('Счетчики')">
+						    Счетчики</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == 'Включены в стоимость'}" 
+						    ng-click="setSelectedRentPayments('Включены в стоимость')">
+						    Включены в стоимость
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == 'Не включены в стоимость'}" 
+						    ng-click="setSelectedRentPayments('Не включены в стоимость')">
+						    Не включены в стоимость
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentFlor == 'Эл. энергия'}" 
+						    ng-click="setSelectedRentPayments('Эл. энергия')">
+						    Эл. энергия
+						    </button>
+							</div>		
+							<div ng-switch-when="rentRemFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body-checkbox" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == undefined}" 
+						    ng-click="setSelectedRentRem(undefined)">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Без отделки'}" 
+						    ng-click="setSelectedRentRem('Без отделки')">
+						    Без отделки</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Косметический'}" 
+						    ng-click="setSelectedRentRem('Косметический')">
+						    Косметический
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Свежий косметический'}" 
+						    ng-click="setSelectedRentRem('Свежий косметический')">
+						    Свежий косметический
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Капитальный'}" 
+						    ng-click="setSelectedRentRem('Капитальный')">
+						    Капитальный
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Евроремонт'}" 
+						    ng-click="setSelectedRentRem('Евроремонт')">
+						    Евроремонт
+						    </button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentRem == 'Дизайнерский'}" 
+						    ng-click="setSelectedRentRem('Дизайнерский')">
+						    Дизайнерский
+						    </button>
+							</div>
+							<div ng-switch-when="rentMaterialFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == undefined}" 
+						    ng-click="setSelectedRentMaterial()">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == 'Кирпич'}" 
+						    ng-click="setSelectedRentMaterial('Кирпич')">
+						    Кирпич</button>
+						   	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == 'Монолит'}" 
+						    ng-click="setSelectedRentMaterial('Монолит')">
+						    Монолит</button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == 'Панель'}" 
+						    ng-click="setSelectedRentMaterial('Панель')">
+						    Панель</button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == 'Дерево'}" 
+						    ng-click="setSelectedRentMaterial('Дерево')">
+						    Дерево</button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentMaterial == 'Пеноблок'}" 
+						    ng-click="setSelectedRentMaterial('Пеноблок')">
+						    Пеноблок</button>
+							</div>
+							<div ng-switch-when="rentHeatingFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == undefined}" 
+						    ng-click="setSelectedRenHeating(undefined)">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Индивидуальное'}" 
+						    ng-click="setSelectedRentHeating('Индивидуальное')">
+						    Индивидуальное</button>
+						   	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Центральное'}" 
+						    ng-click="setSelectedRentHeating('Центральное')">
+						   	Центральное</button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Автономное'}" 
+						    ng-click="setSelectedRentHeating('Автономное')">
+						    Автономное</button>
+						    						    <button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Нет отопления'}" 
+						    ng-click="setSelectedRentHeating('Нет отопления')">
+						    Нет отопления</button>
+							</div>		
+							<div ng-switch-when="rentHeatingFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == ''}" 
+						    ng-click="setSelectedRenHeating()">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Индивидуальное'}" 
+						    ng-click="setSelectedRentHeating('Индивидуальное')">
+						    Индивидуальное</button>
+						   	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Центральное'}" 
+						    ng-click="setSelectedRentHeating('Центральное')">
+						   	Центральное</button>
+						  	<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentHeating == 'Автономное'}" 
+						    ng-click="setSelectedRentHeating('Автономное')">
+						    Автономное</button>
+							</div>		
+							<div ng-switch-when="rentDopFilter">
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':rentDop == ''}" 
+						    ng-click="setSelectedRenDopClear()">
+						    Не важно</button>
+								<button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropFurniture}" 
+						    ng-click="setPropFurniture()">
+						    Мебель</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropElevator}" 
+						    ng-click="setPropElevator()">
+						    Лифт</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropInternet}" 
+						    ng-click="setPropInternet()">
+						    Интернет</button>
+						    <button 
+						    type="button" 
+						    class="b-btn-filter-body" 
+						    btn-checkbox 
+						    ng-class="{'btn-filter-active':PropParking}" 
+						    ng-click="setPropParking()">
+						    Парковка</button>
+							</div>																										
+					</div>
+				</div>
+				<div ng-switch-default>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="b-infopanel raw">
+<div class="container">
+	<div class="col-2"><span>{{Filtered.length}}</span> вариантов аренды</div>
+	<div class="b-filter-order col-7">
+		<span>Сортировать по:</span>
+		<ul>
+			<li 
+			ng-repeat="item in aOrderBy" 
+			class="b-filter-order-l"
+			ng-class="
+			{'b-filter-order-l-active-up':item.status,
+			 'b-filter-order-l-active-reverse':item.reverse,
+			 'b-filter-order-l-active':item.status
+			}"
+			ng-click="setOrderBy(item.name)"
+			ng-bind="item.name"
+			></li>
+		</ul>
+
+	</div>
+	</div>
+	</div>
+	<!--<div class="b-infopanel-b">
+		<div ng-class="{'active':switchView == 'map'}" ng-click="switchViewClick('map')">
+		<i class="fa fa-map-marker"></i>Карта</div>
+		<div ng-class="{'active':switchView == 'list'}" ng-click="switchViewClick('list')">
+		<i class="fa fa-list"></i>Список</div>
+	</div>
+</div>
+</div>
+<div class="b-rentsmap" ng-hide="switchView == 'list'">
+<div class="raw">
+	<div class="container-full">
+		<div class="col-3 b-rentsmap-list" ng-style="{height: iframeHeight}">
+			<div>
+				<div 
+				ng-repeat="rent in Filtered | orderBy:aOrderByField:aOrderByReverse track by $index" 
+				class="b-rentsmap-list-item"
+				ng-controller="itemRentsMapCtrl" 
+				ng-click="showRent(rent.id)">
+					<div class="b-rentsmap-list-item-avatar col-4">
+						<img ng-src="{{rent.img[0]}}">
+					</div>
+					<div class="b-rentsmap-list-item-info col-8">
+						<div class="b-rentsmap-list-item-info-price">{{rent.price + __currency}}</div>
+						<div class="b-rentsmap-list-item-info-type">{{rent.type}}<span>{{rentType()}}</span></div>					
+						<div class="b-rentsmap-list-item-info-adres">{{rent.adres}}</div>
+						<div class="b-rentsmap-list-item-info-square col-3">{{rent.square + __square}}</div>
+						<div class="col-9 b-rentsmap-list-item-info-b">
+							<div><a ng-href="#/rents/{{rent.id}}" ng-click="$event.stopPropagation();" target="_blank"><i class="fa fa-file-o"></i></a></div>
+							<div ng-click="addFavorite(rent.id); $event.stopPropagation();">
+								<i 
+								class="fa"
+								ng-class="isFavorite(rent.id)?'fa-heart':'fa-heart-o'"
+								></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ng-switch on="showRentContent">
+			<div class="col-9 b-rentsmap-content"
+			ng-hide="showRentContent == 'map'">
+				<div class="b-btn _b-btn-small __b-btn-green"
+				ng-click="closeRentContent()">Закрыть</div>
+
+<div class="b-cart">
+<div class="raw">
+	<div class="container">
+		<div class="b-cart-header">
+			<div class="b-cart-header-price col-1">{{rentCart.price + __curency}}</div>
+			<div class="col-12">
+				<div class="b-cart-header-type">{{rentCart.type}}<span class="" ng-show="rentCart.unity != ''">{{' | ' + rentCart.unity}}</span></div>
+				<div class="b-cart-header-adres">{{rentCart.adres + ', ' + rentCart.building}}</div>
+			</div>
+			<div class="col-2">
+				<div class="b-cart-header-addfavorite">
+					<div ng-click="addFavorite()">
+						<i class="fa fa-heart-o"></i> В избранное
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="b-cart-content col-9">
+			<div class="b-cart-content-slider">
+				<div class="b-cart-content-slider-bigimg">
+					<img ng-src="{{currentPhoto(rentCart.img)}}" alt="{{rentCart.adres}}">
+					<div class="b-cart-content-slider-bigimg-angle left" 
+					     ng-click="prevBigImg(rentCart.img)"><i class="fa fa-angle-left"></i></div>
+					<div class="b-cart-content-slider-bigimg-angle right" 
+					     ng-click="nextBigImg(rentCart.img)"><i class="fa fa-angle-right"></i></div>
+					<div class="b-cart-content-slider-bigimg-photocount"><i class="fa fa-camera"></i> {{rentCart.img.length}}</div>
+
+				</div>
+			</div>
+			<div class="b-cart-conten-info">
+				<div class="b-cart-content-info-b">
+					<h2>Информация об объекте</h2>
+					<ul class="b-cart-content-info-b-list">
+							<li>Цена: {{rentCart.price + __curency}}</li>
+							<li>Площадь: {{rentCart.square + __square}}</li>
+							<li>Количество комнат: {{rentCart.roomcount}}</li>
+							<li>Адрес: {{rentCart.adres + ', ' + rentCart.building}}</li>
+							<li>Район: {{rentCart.area}}</li>
+						</ul>
+						<ul class="b-cart-content-info-b-list">
+							<li>Срок аренды: {{rentCart.time}}</li>
+							<li>Этаж: {{rentCart.flor + '/' + rentCart.maxflor}}</li>
+							<li>Материал стен: {{rentCart.material}}</li>
+							<li>Ремонт: {{rentCart.rem}}</li>
+							<li>Доп.платежи: {{rentCart.payments}}</li>
+						</ul>
+				</div>
+				<div class="b-cart-content-info-b">
+					<h2>Дополнительные условия</h2>
+						<ul class="b-cart-content-info-b-list">
+							<li ng-class="infoList(rentCart.propnewhome)">Новый дом</li>
+							<li ng-class="infoList(rentCart.propfurniture)">Мебель</li>
+							<li ng-class="infoList(rentCart.proptv)">Телевизор</li>
+							<li ng-class="infoList(rentCart.propfridge)">Холодильник</li>
+							<li ng-class="infoList(rentCart.propwasher)">Стиральная машина</li>
+							<li ng-class="infoList(rentCart.propmicrowave)">Микроволновая печь</li>
+							<li ng-class="infoList(rentCart.propkitchen)">Встроенная кухня</li>
+							<li ng-class="infoList(rentCart.propbalcony)">Лоджия/Балкон</li>
+						</ul>
+						<ul class="b-cart-content-info-b-list">
+							<li ng-class="infoList(rentCart.propelevator)">Лифт</li>
+							<li ng-class="infoList(rentCart.propinternet)">Интернет</li>
+							<li ng-class="infoList(rentCart.propparking)">Парковка</li>
+							<li ng-class="infoList(rentCart.propconditioning)">Кондиционер</li>
+							<li ng-class="infoList(rentCart.propphone)">Телефон</li>
+							<li ng-class="infoList(rentCart.propappliances)">Бытовые приборы</li>
+							<li ng-class="infoList(rentCart.propsmoking)">Можно курить</li>
+							<li ng-class="infoList(rentCart.propanimal)">Можно с животными</li>
+						</ul>
+				</div>
+				<div class="b-cart-content-info-b">
+					<h2>Расположение</h2>
+				</div>
+					<div class="b-cart-content-info-b-map">
+			    	<yandex-map center="rentCart.map" zoom="11">
+        			<ymap-marker coordinates="rentCart.map"></ymap-marker>
+    				</yandex-map>
+					</div>										
+				</div>
+		</div>
+		<div class="b-cart-sidebar col-12">
+			<div class="b-btn _b-btn-middle __b-btn-green" ng-click="showNumber(rentCart.number)">{{buttonShowNumber}}</div>
+			<div class="b-cart-sidebar-people">Проверенный человек NEtavito</div>
+			<div class="b-cart-sidebar-divider"></div>
+			<div class="b-btn _b-btn-middle __b-btn-green"><i class="fa fa-print"></i> Распечатать</div>
+			<div class="b-btn _b-btn-middle __b-btn-green"><i class="fa fa-envelope"></i> Отправить другу</div>
+			<div class="b-btn _b-btn-middle __b-btn-red"><i class="fa fa-thumbs-o-down "></i> Пожаловаться</div>
+			<div class="b-cart-sidebar-divieder"></div>
+
+			<div class="b-cart-sidebar-divieder"></div>
+
+		</div>
+	</div>
+</div>
+
+</div>
+			</div>
+			<div class="col-9 b-rentsmap-map"
+			ng-hide="showRentContent == 'content'">
+				<!--<div class="b-rentsmap-map-polygon b-btn _b-btn-middle __b-btn-green" ng-click="setMapPolygon()">{{drawButton}}</div>
+				<ya-map 
+					ya-zoom="12"
+					ya-center="{{center}}"
+					ya-after-init="afterInit($target)"
+					ya-controls="smallMapDefaultSet"
+					class="b-rentsmap-map-b">
+						<ya-geo-object 
+							ya-source="geoPolygon[0]" 
+							ya-options="{editorDrawingCursor: 'crosshair',editorMaxPoints: 5,fillColor: 'rgba(255,255,255,.2)',strokeColor: 'rgba(0,206,131,1)',strokeWidth: 2}"  
+							ya-after-init="searchMapInsidePolygon($target)"
+							ya-draw></ya-geo-object>
+						<ya-cluster
+	            ya-options="{preset:'islands#invertedGreenClusterIcons'}"
+	            ya-after-init="initCluster($target)"
+	            ya-show-all>
+	        			<ya-geo-object ya-options="{preset: 'islands#greenIcon'}"
+	        			ng-repeat="o in geoObjects" ya-source="o"></ya-geo-object>
+	     
+	    			</ya-cluster>
+				</ya-map>
+		<yandex-map center="center" zoom="11">
+        <ymap-marker ng-repeat="o in geoObjects" index="$index+1" coordinates="o"></ymap-marker>
+    </yandex-map>
+			</div>
+		</div> 
+	</div>
+</div>
+</div>-->
+<div ng-hide="switchView == 'map'">
+<div class="raw" ng-hide="Filtered.length > 0">
+	<div class="container">
+		<div class="b-rentTable zero-item-table">
+				Таких объектов нет. Попробуйте применить меньше критериев поиска.
+		</div>
+	</div>
+</div> 
+<div class="raw" >
+	<div class="container">
+		<ul class="b-rentTable">
+		<li 
+				ng-repeat="rent in Filtered |orderBy:aOrderByField:aOrderByReverse| startFrom: startingItem() | limitTo: itemsPerPage track by $index" 
+				class="b-rentTable-item" 
+				ng-controller="rentsTableItemCtrl"
+				>
+				<div class="b-rentTable-item-map col-3">
+					<img ng-src="{{rent.staticmap}}">
+				</div>
+				<div class="b-rentTable-item-info col-5">
+					<div class="col-12">
+						<div class="b-rentTable-item-info-price col-8">{{rent.price + __currency}}</div>
+						<div class="col-4 addfavorite">
+							<span>Объект №{{rent.id}}</span>
+							<i 
+							class="fa"
+							ng-class="isFavorite(rent.id)?'fa-heart':'fa-heart-o'"
+							ng-click="addFavorite(rent.id)"
+							title="{{isFavorite(rent.id)?'Удалить из избранного':'Добавить в избранное'}}"
+							></i>
+						</div>
+					</div>			
+					<div class="b-rentTable-item-info-adres">{{rent.adres}}</div>
+					<div class="b-rentTable-item-info-type">{{rent.type}}<span>{{rentType(rent.unity)}}</span></div>		
+					<div class="b-btn _b-btn-small __b-btn-green b-rentTable-item-info-number" ng-click="showNumber(rent.number)">{{buttonShowNumber}}</div>
+					<div class="b-rentTable-item-info-b">
+						<ul class="b-rentTable-item-info-b-list col-6">
+							<li>Площадь: {{rent.square + __square}}</li>
+							<li>Доп.платежи: {{rent.payments}}</li>
+							<li>Залог: {{rent.zalog}}</li>
+							<li>Предоплата: {{rent.predoplata}}</li>
+						</ul>
+						<ul class="b-rentTable-item-info-b-list col-6">
+							<li>Срок аренды: {{rent.time}}</li>
+							<li>Этаж: {{rent.flor + '/' + rent.maxflor}}</li>
+							<li>Ремонт: {{rent.rem}}</li>
+							<li>Материал стен: {{rent.material}}</li>
+						</ul>
+					</div>
+				<div class="b-rentTable-item-info-buttons">
+					<a class="b-btn _b-btn-small __b-btn-grey" target="_blank" href="#/rents/{{rent.id}}">Открыть в новой вкладке</a>
+					<div class="b-btn _b-btn-small __b-btn-grey" ng-click="showInfo()" ng-show="isShowInfoButton(rent.img)" style="width:221px;">{{buttonShowInfo}}</div>					
+				</div>
+				</div>
+				<div class="b-rentTable-item-dopinfo col-4">
+					<div class="b-rentTable-item-dopinfo-avatar" ng-show="!isShowInfo">
+						<div class="b-rentTable-item-dopinfo-avatar-img"><img ng-src="{{currentPhoto(rent.img)}}">				
+						<div class="b-rentTable-item-dopinfo-avatar-img-panel" >
+						<div class="b-rentTable-item-dopinfo-avatar-img-panel-angle left" ng-click="prevPhoto(rent.img)" ng-show="rent.img.length > 1"><i class="fa fa-angle-left"></i></div>
+						<div class="b-rentTable-item-dopinfo-avatar-img-panel-angle right" ng-click="nextPhoto(rent.img)"  ng-show="rent.img.length > 1"><i class="fa fa-angle-right"></i></div>
+						<div class="b-rentTable-item-dopinfo-avatar-img-panel-photocount"><i class="fa fa-camera"></i> {{rent.img.length}}</div>
+						</div></div>
+
+					</div>
+					<div class="b-rentTable-item-dopinfo-b" ng-show="isShowInfo"  ng-switch="switchFilterCategory()">
+						<div ng-switch-when="1">
+							<ul class="b-rentTable-item-dopinfo-b-list">
+								<li ng-class="infoList(rent.propnewhome)">Новый дом</li>
+								<li ng-class="infoList(rent.propfurniture)">Мебель</li>
+								<li ng-class="infoList(rent.proptv)">Телевизор</li>
+								<li ng-class="infoList(rent.propfridge)">Холодильник</li>
+								<li ng-class="infoList(rent.propwasher)">Стиральная машина</li>
+								<li ng-class="infoList(rent.propmicrowave)">Микроволновая печь</li>
+								<li ng-class="infoList(rent.propkitchen)">Встроенная кухня</li>
+								<li ng-class="infoList(rent.propbalcony)">Лоджия/Балкон</li>
+								<li ng-class="infoList(rent.propbaby)">Можно с детьми</li>
+							</ul>
+							<ul class="b-rentTable-item-dopinfo-b-list">
+								<li ng-class="infoList(rent.propelevator)">Лифт</li>
+								<li ng-class="infoList(rent.propinternet)">Интернет</li>
+								<li ng-class="infoList(rent.propparking)">Парковка</li>
+								<li ng-class="infoList(rent.propconditioning)">Кондиционер</li>
+								<li ng-class="infoList(rent.propphone)">Телефон</li>
+								<li ng-class="infoList(rent.propappliances)">Бытовые приборы</li>
+								<li ng-class="infoList(rent.propsmoking)">Можно курить</li>
+								<li ng-class="infoList(rent.propanimal)">Можно с животными</li>
+								<li ng-class="infoList(rent.propsleep)">Спальное место</li>
+							</ul>
+						</div>
+						<div ng-switch-when="2">
+							<ul class="b-rentTable-item-dopinfo-b-list">
+								<li ng-class="infoList(rent.propfurniture)">Мебель</li>
+								<li ng-class="infoList(rent.propelevator)">Лифт</li>
+								<li ng-class="infoList(rent.propinternet)">Интернет</li>
+								<li ng-class="infoList(rent.propparking)">Парковка</li>
+							</ul>
+</div> 
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		    <div class="b-pagination row">
+		    <div class="container">
+      <button class="b-btn _b-btn-small __b-btn-green" ng-class="{'ohide':firstPage()}" ng-click="pageBack()"><i class="fa fa-angle-left"></i> Назад</button>
+      <span>{{currentPage+1}} из {{numberOfPages()}}</span>
+      <button 
+      	class="b-btn _b-btn-small __b-btn-green" ng-class="{'ohide':lastPage()}"
+      	ng-click="pageForward()"
+      	ng-disabled="lastPage()">
+       Вперед <i class="fa fa-angle-right"></i> </button>
+      </div>
+    </div>
+	</div>
+</div>
+</div>
+</div>
+<bfooter>
+</bfooter> 
+
+</div>
+
+
+
+</div>
+</div>

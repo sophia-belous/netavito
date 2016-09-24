@@ -1,0 +1,101 @@
+<headermin></headermin>
+<div class="freespace"></div>
+<div class="b-cart">
+<div class="raw">
+	<div class="container">
+		<div class="b-cart-header">
+			<div class="b-cart-header-price col-1">{{rentCart.price + __curency}}</div>
+			<div class="col-9">
+				<div class="b-cart-header-type">{{rentCart.type}}<span class="" ng-show="rentCart.unity != ''">{{' | ' + rentCart.unity}}</span></div>
+				<div class="b-cart-header-adres">{{rentCart.adres + ', ' + rentCart.building}}</div>
+			</div>
+			<div class="col-2">
+				<div class="b-cart-header-addfavorite">
+					<div ng-click="addFavorite()">
+						<i class="fa fa-heart-o"></i> В избранное
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="b-cart-content col-9">
+			<div class="b-cart-content-slider">
+				<div class="b-cart-content-slider-bigimg">
+					<img ng-src="{{currentPhoto(rentCart.img)}}" alt="{{rentCart.adres}}">
+					<div class="b-cart-content-slider-bigimg-angle left" 
+					     ng-click="prevBigImg(rentCart.img)"><i class="fa fa-angle-left"></i></div>
+					<div class="b-cart-content-slider-bigimg-angle right" 
+					     ng-click="nextBigImg(rentCart.img)"><i class="fa fa-angle-right"></i></div>
+					<div class="b-cart-content-slider-bigimg-photocount"><i class="fa fa-camera"></i> {{rentCart.img.length}}</div>
+
+				</div>
+			</div>
+			<div class="b-cart-conten-info">
+				<div class="b-cart-content-info-b">
+					<h2>Информация об объекте</h2>
+					<ul class="b-cart-content-info-b-list">
+							<li>Цена: {{rentCart.price + __curency}}</li>
+							<li>Площадь: {{rentCart.square + __square}}</li>
+							<li>Количество комнат: {{rentCart.roomcount}}</li>
+							<li>Адрес: {{rentCart.adres + ', ' + rentCart.building}}</li>
+							<li>Район: {{rentCart.area}}</li>
+						</ul>
+						<ul class="b-cart-content-info-b-list">
+							<li>Срок аренды: {{rentCart.time}}</li>
+							<li>Этаж: {{rentCart.flor + '/' + rentCart.maxflor}}</li>
+							<li>Материал стен: {{rentCart.material}}</li>
+							<li>Ремонт: {{rentCart.rem}}</li>
+							<li>Доп.платежи: {{rentCart.payments}}</li>
+						</ul>
+				</div>
+				<div class="b-cart-content-info-b">
+					<h2>Дополнительные условия</h2>
+						<ul class="b-cart-content-info-b-list">
+							<li ng-class="infoList(rentCart.propnewhome)">Новый дом</li>
+							<li ng-class="infoList(rentCart.propfurniture)">Мебель</li>
+							<li ng-class="infoList(rentCart.proptv)">Телевизор</li>
+							<li ng-class="infoList(rentCart.propfridge)">Холодильник</li>
+							<li ng-class="infoList(rentCart.propwasher)">Стиральная машина</li>
+							<li ng-class="infoList(rentCart.propmicrowave)">Микроволновая печь</li>
+							<li ng-class="infoList(rentCart.propkitchen)">Встроенная кухня</li>
+							<li ng-class="infoList(rentCart.propbalcony)">Лоджия/Балкон</li>
+						</ul>
+						<ul class="b-cart-content-info-b-list">
+							<li ng-class="infoList(rentCart.propelevator)">Лифт</li>
+							<li ng-class="infoList(rentCart.propinternet)">Интернет</li>
+							<li ng-class="infoList(rentCart.propparking)">Парковка</li>
+							<li ng-class="infoList(rentCart.propconditioning)">Кондиционер</li>
+							<li ng-class="infoList(rentCart.propphone)">Телефон</li>
+							<li ng-class="infoList(rentCart.propappliances)">Бытовые приборы</li>
+							<li ng-class="infoList(rentCart.propsmoking)">Можно курить</li>
+							<li ng-class="infoList(rentCart.propanimal)">Можно с животными</li>
+						</ul>
+				</div>
+				<div class="b-cart-content-info-b">
+					<h2>Расположение</h2>
+				</div>
+					<div class="b-cart-content-info-b-map">
+			    	<yandex-map center="rentCart.map" zoom="11">
+        			<ymap-marker coordinates="rentCart.map"></ymap-marker>
+    				</yandex-map>
+					</div>										
+				</div>
+		</div>
+		<div class="b-cart-sidebar col-3">
+			<div class="b-btn _b-btn-middle __b-btn-green" ng-click="showNumber(rentCart.number)">{{buttonShowNumber}}</div>
+			<div class="b-cart-sidebar-people">Проверенный человек NEtavito</div>
+			<div class="b-cart-sidebar-divider"></div>
+			<div class="b-btn _b-btn-middle __b-btn-green"><i class="fa fa-print"></i> Распечатать</div>
+			<div class="b-btn _b-btn-middle __b-btn-green"><i class="fa fa-envelope"></i> Отправить другу</div>
+			<div class="b-btn _b-btn-middle __b-btn-red"><i class="fa fa-thumbs-o-down "></i> Пожаловаться</div>
+			<div class="b-cart-sidebar-divieder"></div>
+
+			<div class="b-cart-sidebar-divieder"></div>
+
+		</div>
+	</div>
+</div>
+
+</div>
+
+<bfooter>
+</bfooter> 
