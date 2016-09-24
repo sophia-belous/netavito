@@ -1,0 +1,22 @@
+  <header class="b-header" ng-controller="headerMinCtrl">
+  <popuplogin></popuplogin>
+    <div class="container">
+      <div class="raw">
+            <a href ="{{baseUrl}}" class="b-header-homelink">
+                <img ng-src="{{logo}}" title="NETAvito" alt="NETAvito" class="b-header-homelink-logo"/>
+              </a>
+            <div class="b-header-menu">
+              <ul>
+                <li><a href="#/rents/" class="b-btn _b-btn-middle __b-btn-green">База недвижимости</a></li>
+                <li><a ng-click="openPopUp();setPopupSwitch('question')" class="b-btn _b-btn-middle __b-btn-green">Задать вопрос</a></li>
+                <li><a href="#/favorite" class="b-btn _b-btn-middle __b-btn-green"><i class="icon heart"></i>Избранное<sup>{{favCount()}}</sup></a></li>
+                <li><a ng-click="openPopUp();setPopupSwitch() " id="button_enter" class="b-btn _b-btn-middle __b-btn-red">Войти<i class="icon ardown"></i></a></li>
+              </ul>
+            </div>
+           <ul class="b-header-contact">
+             <li><a href=""><i class="fa fa-mobile"></i>(4812)40-70-12</a></li>
+             <li><a href=""><i class="fa fa-envelope"></i>info@netavito.ru</a></li>
+           </ul>
+      </div>
+    </div>
+  </header>

@@ -1,0 +1,128 @@
+<headermin></headermin>
+<div class="freespace"></div>
+<div class="filter-holder" ng-show="isShowFilter" ng-click="showFilterPopup()"></div>
+<div>
+</div>
+<div class="b-infopanel raw">
+	<div class="container">
+		<div class="col-2"><span>{{Filtered.length}}</span> вариантов аренды</div>
+		<div class="b-filter-order col-7">
+			<span>Сортировать по:</span>
+			<ul>
+				<li ng-repeat="item in aOrderBy" class="b-filter-order-l" ng-class="
+			{'b-filter-order-l-active-up':item.status,
+			 'b-filter-order-l-active-reverse':item.reverse,
+			 'b-filter-order-l-active':item.status
+			}" ng-click="setOrderBy(item.name)" ng-bind="item.name"></li>
+			</ul>
+
+		</div>
+	</div>
+</div>
+<div ng-hide="switchView == 'map'">
+	<div class="raw" ng-hide="Filtered.length > 0">
+		<div class="container">
+			<div class="b-rentTable zero-item-table">
+				Сначала добавте объекты в избранное нажав на <i class="fa fa-heart-o"></i>
+			</div>
+		</div>
+	</div>
+	<div class="raw">
+		<div class="container">
+			<ul class="b-rentTable">
+				<li ng-repeat="rent in Filtered |orderBy:aOrderByField:aOrderByReverse| startFrom: startingItem() | limitTo: itemsPerPage track by $index"
+					class="b-rentTable-item" ng-controller="rentsTableItemCtrl">
+					<div class="b-rentTable-item-map col-3">
+						<img ng-src="{{rent.staticmap}}">
+					</div>
+					<div class="b-rentTable-item-info col-5">
+						<div class="col-12">
+							<div class="b-rentTable-item-info-price col-8">{{rent.price + __currency}}</div>
+							<div class="col-4 addfavorite">
+								<span>Объект №{{rent.id}}</span>
+								<i class="fa" ng-class="isFavorite(rent.id)?'fa-heart':'fa-heart-o'" ng-click="addFavorite(rent.id)" title="{{isFavorite(rent.id)?'Удалить из избранного':'Добавить в избранное'}}"></i>
+							</div>
+						</div>
+						<div class="b-rentTable-item-info-adres">{{rent.adres}}</div>
+						<div class="b-rentTable-item-info-type">{{rent.type}}<span>{{rentType(rent.unity)}}</span></div>
+						<div class="b-btn _b-btn-small __b-btn-green b-rentTable-item-info-number" ng-click="showNumber(rent.number)">{{buttonShowNumber}}</div>
+						<div class="b-rentTable-item-info-b">
+							<ul class="b-rentTable-item-info-b-list col-6">
+								<li>Площадь: {{rent.square + __square}}</li>
+								<li>Доп.платежи: {{rent.payments}}</li>
+								<li>Залог: {{rent.zalog}}</li>
+								<li>Предоплата: {{rent.predoplata}}</li>
+							</ul>
+							<ul class="b-rentTable-item-info-b-list col-6">
+								<li>Срок аренды: {{rent.time}}</li>
+								<li>Этаж: {{rent.flor + '/' + rent.maxflor}}</li>
+								<li>Ремонт: {{rent.rem}}</li>
+								<li>Материал стен: {{rent.material}}</li>
+							</ul>
+						</div>
+						<div class="b-rentTable-item-info-buttons">
+							<a class="b-btn _b-btn-small __b-btn-grey" target="_blank" href="#/rents/{{rent.id}}">Открыть в новой вкладке</a>
+							<div class="b-btn _b-btn-small __b-btn-grey" ng-click="showInfo()" ng-show="isShowInfoButton(rent.img)" style="width:221px;">{{buttonShowInfo}}</div>
+						</div>
+					</div>
+					<div class="b-rentTable-item-dopinfo col-4">
+						<div class="b-rentTable-item-dopinfo-avatar" ng-show="!isShowInfo">
+							<div class="b-rentTable-item-dopinfo-avatar-img"><img ng-src="{{currentPhoto(rent.img)}}">
+								<div class="b-rentTable-item-dopinfo-avatar-img-panel">
+									<div class="b-rentTable-item-dopinfo-avatar-img-panel-angle left" ng-click="prevPhoto(rent.img)" ng-show="rent.img.length > 1"><i class="fa fa-angle-left"></i></div>
+									<div class="b-rentTable-item-dopinfo-avatar-img-panel-angle right" ng-click="nextPhoto(rent.img)" ng-show="rent.img.length > 1"><i class="fa fa-angle-right"></i></div>
+									<div class="b-rentTable-item-dopinfo-avatar-img-panel-photocount"><i class="fa fa-camera"></i> {{rent.img.length}}</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="b-rentTable-item-dopinfo-b" ng-show="isShowInfo" ng-switch="switchFilterCategory()">
+							<div ng-switch-when="1">
+								<ul class="b-rentTable-item-dopinfo-b-list">
+									<li ng-class="infoList(rent.propnewhome)">Новый дом</li>
+									<li ng-class="infoList(rent.propfurniture)">Мебель</li>
+									<li ng-class="infoList(rent.proptv)">Телевизор</li>
+									<li ng-class="infoList(rent.propfridge)">Холодильник</li>
+									<li ng-class="infoList(rent.propwasher)">Стиральная машина</li>
+									<li ng-class="infoList(rent.propmicrowave)">Микроволновая печь</li>
+									<li ng-class="infoList(rent.propkitchen)">Встроенная кухня</li>
+									<li ng-class="infoList(rent.propbalcony)">Лоджия/Балкон</li>
+									<li ng-class="infoList(rent.propbaby)">Можно с детьми</li>
+								</ul>
+								<ul class="b-rentTable-item-dopinfo-b-list">
+									<li ng-class="infoList(rent.propelevator)">Лифт</li>
+									<li ng-class="infoList(rent.propinternet)">Интернет</li>
+									<li ng-class="infoList(rent.propparking)">Парковка</li>
+									<li ng-class="infoList(rent.propconditioning)">Кондиционер</li>
+									<li ng-class="infoList(rent.propphone)">Телефон</li>
+									<li ng-class="infoList(rent.propappliances)">Бытовые приборы</li>
+									<li ng-class="infoList(rent.propsmoking)">Можно курить</li>
+									<li ng-class="infoList(rent.propanimal)">Можно с животными</li>
+								</ul>
+							</div>
+							<div ng-switch-when="2">
+								<ul class="b-rentTable-item-dopinfo-b-list">
+									<li ng-class="infoList(rent.propfurniture)">Мебель</li>
+									<li ng-class="infoList(rent.propelevator)">Лифт</li>
+									<li ng-class="infoList(rent.propinternet)">Интернет</li>
+									<li ng-class="infoList(rent.propparking)">Парковка</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+		</div>
+		</li>
+		</ul>
+		<div class="b-pagination row">
+			<div class="container">
+				<button class="b-btn _b-btn-small __b-btn-green" ng-class="{'ohide':firstPage()}" ng-click="pageBack()"><i class="fa fa-angle-left"></i> Назад</button>
+				<span>{{currentPage+1}} из {{numberOfPages()}}</span>
+				<button class="b-btn _b-btn-small __b-btn-green" ng-class="{'ohide':lastPage()}" ng-click="pageForward()">Вперед <i class="fa fa-angle-right"></i> </button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<bfooter>
+</bfooter>
