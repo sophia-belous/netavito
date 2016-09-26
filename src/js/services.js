@@ -4,7 +4,7 @@ var deffered = $q.defer();
   var getRentsService = {};
 
   getRentsService.async = function() {
-    $http.get('app/json/rents.json')
+    $http.get('json/rents.json')
     .success(function (d) {
       data = d;
       deffered.resolve();

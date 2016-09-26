@@ -1,4 +1,5 @@
 netavitoApp.controller('getRentsCtrl', function(getRentsService,favoriteRent, $location, $scope, $interval) {
+	var minMaxPrice;
   getRentsService.async().then(function() {
     $scope.rents = getRentsService.data();
     $scope.Filtered = $scope.$eval("rents | filter:rentQuery |rangePriceFilter:minPrice:maxPrice | rangeSquareFilter:minSquare:maxSquare | roomCountFilter:rentRoomCount1:rentRoomCount2:rentRoomCount3:rentRoomCount4:rentRoomCount5:rentRoomCount6 | areaFilter:rentArea1:rentArea2:rentArea3:rentArea4 |filter:{ category:rentCategoryQuery, time:rentTime,  filterflor:rentFlor,payments:rentPayments,rem:rentRem,material:rentMaterial,heating:rentHeating, propnewhome:PropNewhome, propfurniture:PropFurniture, proptv:PropTv, propfridge:PropFridge, propwasher:PropWasher, propmicrowave:PropMicrowave, propkitchen:PropKitchen, propbalcony:PropBalcony, propelevator:PropElevator, propinternet:PropInternet, propparking:PropParking, propconditioning:PropConditioning, propphone:PropPhone, propappliances:PropAppliances, propsmoking:PropSmoking, propanimal:PropAnimal}");   
@@ -18,10 +19,12 @@ netavitoApp.controller('getRentsCtrl', function(getRentsService,favoriteRent, $l
     }
      var  min = $scope.rents[0].price,
      max = min;
-     var minMaxPrice = function(category) {
+     minMaxPrice = function(category) {
        var myArray = []
        angular.forEach($scope.rents, function(item, key){
          if(item.category == category){
+					 console.log(item.category)
+				 		console.log(category)	
            if(item.price > max){
              max = item.price
            }
@@ -32,6 +35,16 @@ netavitoApp.controller('getRentsCtrl', function(getRentsService,favoriteRent, $l
        });
        return [min,max]
      }
+
+		//здесь pfrfyxbdftncz обновление выдачи с фильтрацией
+		//установка минимальной и максимальной цены в зависимости от категорр
+		$scope.$watch('rentCategoryQuery', function(){
+			minmax = minMaxPrice($scope.rentCategoryQuery)
+			$scope.itemsslider[0].value = minmax[0]
+			$scope.itemsslider[1].value = minmax[1]
+			$scope.itemsslider[0].value = 3000
+			$scope.itemsslider[1].value = 15000
+		});
 	});	
 
   var createGeoObjects = function(){
@@ -61,15 +74,7 @@ $interval(function(){
   createGeoObjects()
   
 }, 1000);
-//здесь pfrfyxbdftncz обновление выдачи с фильтрацией
-//установка минимальной и максимальной цены в зависимости от категорр
- $scope.$watch('rentCategoryQuery', function(){
- minmax = minMaxPrice($scope.rentCategoryQuery)
- $scope.itemsslider[0].value = minmax[0]
- $scope.itemsslider[1].value = minmax[1]
-  $scope.itemsslider[0].value = 3000
-  $scope.itemsslider[1].value = 15000
-});
+
 
  	$scope.__currency = '₽';
 	$scope.__square = 'м²';
