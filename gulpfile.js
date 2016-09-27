@@ -56,6 +56,7 @@ gulp.task('json', function (){
 gulp.task('webserver', function() {
   gulp.src('app')
   .pipe(webserver({
+	host: '0.0.0.0',
 	port: process.env.PORT || 2020,
     livereload: true,
     open: true
