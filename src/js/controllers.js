@@ -20,7 +20,7 @@ netavitoApp.config(['$routeProvider', '$locationProvider', function($routeProvid
         controller: 'getRentsCtrl'
       })
       .when('/rents/:rentid', {
-        templateUrl: 'views/rentCart.html',
+        templateUrl: 'views/rentcart.html',
         controller: 'rentCartCtrl'
       })
       .when('/favorite', {
